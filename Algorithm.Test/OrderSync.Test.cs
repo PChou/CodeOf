@@ -11,190 +11,132 @@ namespace Algorithm.Test
         [TestMethod]
         public void OrderSync_Test_01()
         {
-            SyncableString.store.ClearAll();
-            List<SyncableString> left = SyncableString.ConstructList("a", "b", "c", "g", "i", "j");
-            List<SyncableString> right = SyncableString.ConstructList("a", "b", "h", "i", "k", "m","p","z");
-            OrderSync.Sync<SyncableString>(left, right);
-            Assert.AreEqual(3, SyncableString.store.LeftEqual.Count);//abi
-            Assert.AreEqual(3, SyncableString.store.rightEqual.Count);//abi
-            Assert.AreEqual(3, SyncableString.store.LeftStep.Count);//cgj
-            Assert.AreEqual(1, SyncableString.store.rightStep.Count);//h
-            Assert.AreEqual(0, SyncableString.store.LeftMore.Count);
-            Assert.AreEqual(4, SyncableString.store.rightMore.Count);//kmpz
+            StringSynCollection left = new StringSynCollection("a", "b", "c", "g", "i", "j");
+            StringSynCollection right = new StringSynCollection("a", "b", "h", "i", "k", "m", "p", "z");
+            OrderSync.Sync(left, right);
+            Assert.AreEqual(3, left.Equal.Count);//abi
+            Assert.AreEqual(3, right.Equal.Count);//abi
+            Assert.AreEqual(3, left.Less.Count);//cgj
+            Assert.AreEqual(1, right.Less.Count);//h
+            Assert.AreEqual(0, left.More.Count);
+            Assert.AreEqual(4, right.More.Count);//kmpz
         }
 
         [TestMethod]
         public void OrderSync_Test_02()
         {
-            SyncableString.store.ClearAll();
-            List<SyncableString> left = SyncableString.ConstructList(null);
-            List<SyncableString> right = SyncableString.ConstructList("a", "b", "h", "i", "k", "m", "p", "z");
-            OrderSync.Sync<SyncableString>(left, right);
-            Assert.AreEqual(0, SyncableString.store.LeftEqual.Count);
-            Assert.AreEqual(0, SyncableString.store.rightEqual.Count);
-            Assert.AreEqual(0, SyncableString.store.LeftStep.Count);
-            Assert.AreEqual(0, SyncableString.store.rightStep.Count);
-            Assert.AreEqual(0, SyncableString.store.LeftMore.Count);
-            Assert.AreEqual(8, SyncableString.store.rightMore.Count);
+            StringSynCollection left = new StringSynCollection(null);
+            StringSynCollection right = new StringSynCollection("a", "b", "h", "i", "k", "m", "p", "z");
+            OrderSync.Sync(left, right);
+            Assert.AreEqual(0, left.Equal.Count);
+            Assert.AreEqual(0, right.Equal.Count);
+            Assert.AreEqual(0, left.Less.Count);
+            Assert.AreEqual(0, right.Less.Count);
+            Assert.AreEqual(0, left.More.Count);
+            Assert.AreEqual(8, right.More.Count);
         }
 
         [TestMethod]
         public void OrderSync_Test_03()
         {
-            SyncableString.store.ClearAll();
-            List<SyncableString> left = SyncableString.ConstructList("a", "b", "c", "g", "i", "j");
-            List<SyncableString> right = SyncableString.ConstructList(null);
-            OrderSync.Sync<SyncableString>(left, right);
-            Assert.AreEqual(0, SyncableString.store.LeftEqual.Count);
-            Assert.AreEqual(0, SyncableString.store.rightEqual.Count);
-            Assert.AreEqual(0, SyncableString.store.LeftStep.Count);
-            Assert.AreEqual(0, SyncableString.store.rightStep.Count);
-            Assert.AreEqual(6, SyncableString.store.LeftMore.Count);
-            Assert.AreEqual(0, SyncableString.store.rightMore.Count);
+            StringSynCollection left = new StringSynCollection("a", "b", "c", "g", "i", "j");
+            StringSynCollection right = new StringSynCollection(null);
+            OrderSync.Sync(left, right);
+            Assert.AreEqual(0, left.Equal.Count);
+            Assert.AreEqual(0, right.Equal.Count);
+            Assert.AreEqual(0, left.Less.Count);
+            Assert.AreEqual(0, right.Less.Count);
+            Assert.AreEqual(6, left.More.Count);
+            Assert.AreEqual(0, right.More.Count);
         }
 
 
         [TestMethod]
         public void OrderSync_Test_04()
         {
-            SyncableString.store.ClearAll();
-            List<SyncableString> left = SyncableString.ConstructList("a", "b", "c", "g", "i", "j");
-            List<SyncableString> right = SyncableString.ConstructList("a", "b", "c", "g", "i", "j");
-            OrderSync.Sync<SyncableString>(left, right);
-            Assert.AreEqual(6, SyncableString.store.LeftEqual.Count);
-            Assert.AreEqual(6, SyncableString.store.rightEqual.Count);
-            Assert.AreEqual(0, SyncableString.store.LeftStep.Count);
-            Assert.AreEqual(0, SyncableString.store.rightStep.Count);
-            Assert.AreEqual(0, SyncableString.store.LeftMore.Count);
-            Assert.AreEqual(0, SyncableString.store.rightMore.Count);
+            StringSynCollection left = new StringSynCollection("a", "b", "c", "g", "i", "j");
+            StringSynCollection right = new StringSynCollection("a", "b", "c", "g", "i", "j");
+            OrderSync.Sync(left, right);
+            Assert.AreEqual(6, left.Equal.Count);
+            Assert.AreEqual(6, right.Equal.Count);
+            Assert.AreEqual(0, left.Less.Count);
+            Assert.AreEqual(0, right.Less.Count);
+            Assert.AreEqual(0, left.More.Count);
+            Assert.AreEqual(0, right.More.Count);
         }
 
         [TestMethod]
         public void OrderSync_Test_05()
         {
-            SyncableString.store.ClearAll();
-            List<SyncableString> left = SyncableString.ConstructList("a", "b", "c", "g", "i", "j");
-            List<SyncableString> right = SyncableString.ConstructList("a", "b", "c", "g", "i", "k");
-            OrderSync.Sync<SyncableString>(left, right);
-            Assert.AreEqual(5, SyncableString.store.LeftEqual.Count);
-            Assert.AreEqual(5, SyncableString.store.rightEqual.Count);
-            Assert.AreEqual(1, SyncableString.store.LeftStep.Count);
-            Assert.AreEqual(0, SyncableString.store.rightStep.Count);
-            Assert.AreEqual(0, SyncableString.store.LeftMore.Count);
-            Assert.AreEqual(1, SyncableString.store.rightMore.Count);
+            StringSynCollection left = new StringSynCollection("a", "b", "c", "g", "i", "j");
+            StringSynCollection right = new StringSynCollection("a", "b", "c", "g", "i", "k");
+            OrderSync.Sync(left, right);
+            Assert.AreEqual(5, left.Equal.Count);
+            Assert.AreEqual(5, right.Equal.Count);
+            Assert.AreEqual(1, left.Less.Count);
+            Assert.AreEqual(0, right.Less.Count);
+            Assert.AreEqual(0, left.More.Count);
+            Assert.AreEqual(1, right.More.Count);
         }
 
         [TestMethod]
         public void OrderSync_Test_06()
         {
-            SyncableString.store.ClearAll();
-            List<SyncableString> left = SyncableString.ConstructList(null);
-            List<SyncableString> right = SyncableString.ConstructList(null);
-            OrderSync.Sync<SyncableString>(left, right);
-            Assert.AreEqual(0, SyncableString.store.LeftEqual.Count);
-            Assert.AreEqual(0, SyncableString.store.rightEqual.Count);
-            Assert.AreEqual(0, SyncableString.store.LeftStep.Count);
-            Assert.AreEqual(0, SyncableString.store.rightStep.Count);
-            Assert.AreEqual(0, SyncableString.store.LeftMore.Count);
-            Assert.AreEqual(0, SyncableString.store.rightMore.Count);
+            StringSynCollection left = new StringSynCollection(null);
+            StringSynCollection right = new StringSynCollection(null);
+            OrderSync.Sync(left, right);
+            Assert.AreEqual(0, left.Equal.Count);
+            Assert.AreEqual(0, right.Equal.Count);
+            Assert.AreEqual(0, left.Less.Count);
+            Assert.AreEqual(0, right.Less.Count);
+            Assert.AreEqual(0, left.More.Count);
+            Assert.AreEqual(0, right.More.Count);
         }
+
     }
 
 
-    public class Store
+    public class StringSynCollection : ISyncable
     {
-        public List<SyncableString> LeftEqual = new List<SyncableString>();
-        public List<SyncableString> rightEqual = new List<SyncableString>();
-        public List<SyncableString> LeftStep = new List<SyncableString>();
-        public List<SyncableString> rightStep = new List<SyncableString>();
-        public List<SyncableString> LeftMore = new List<SyncableString>();
-        public List<SyncableString> rightMore = new List<SyncableString>();
+        private List<string> _inner = null;
 
-        public void ClearAll()
+        public StringSynCollection(params string[] nodes)
         {
-            LeftEqual.Clear();
-            rightEqual.Clear();
-            LeftStep.Clear();
-            rightStep.Clear();
-            LeftMore.Clear();
-            rightMore.Clear();
-        }
-    }
-
-
-    public class SyncableString : Syncable
-    {
-        public static List<SyncableString> ConstructList(params string[] param)
-        {
-            List<SyncableString> result = new List<SyncableString>();
-            if (param == null)
-                return result;
-            foreach (string s in param)
+            _inner = new List<string>();
+            if (nodes != null)
             {
-                result.Add(new SyncableString(s));
-            }
-
-            return result;
-        }
-
-        public static Store store = new Store();
-
-        private String _InnerString;
-
-        public String InnerString { 
-            get{
-                return _InnerString;
-            }
-            set {
-                _InnerString = value;
+                foreach (var n in nodes)
+                {
+                    _inner.Add(n);
+                }
             }
         }
 
-        public SyncableString(String input)
+        public List<string> Equal = new List<string>();
+        public List<string> Less = new List<string>();
+        public List<string> More = new List<string>();
+
+        public void DoEqualStep(IComparable Current, IComparable Another)
         {
-            _InnerString = input;
+            Equal.Add((string)Current);
         }
 
-
-
-        public override int CompareTo(Syncable Another)
+        public void DoLessStep(IComparable Current, IComparable Another)
         {
-            if (Another is SyncableString)
-                return this.InnerString.CompareTo(((SyncableString)Another).InnerString);
-            else
-                throw new ArgumentException("Another must be SyncableString");
+            Less.Add((string)Current);
         }
 
-        public override void DoMoreLeft()
+        public void DoMoreStep(IComparable Current)
         {
-            store.LeftMore.Add(this);
+            More.Add((string)Current);
         }
 
-        public override void DoMoreRight()
+        public System.Collections.IEnumerator GetEnumerator()
         {
-            store.rightMore.Add(this);
-        }
-
-        public override void DoStepSameTimeLeft(Syncable Equaler)
-        {
-            store.LeftEqual.Add(this);
-        }
-
-        public override void DoStepSameTimeRight(Syncable Equaler)
-        {
-            store.rightEqual.Add(this);
-        }
-
-        public override void DoLeftStep(Syncable LessThan)
-        {
-            store.LeftStep.Add(this);
-        }
-
-        public override void DoRightStep(Syncable LessThan)
-        {
-            store.rightStep.Add(this);
+            return _inner.GetEnumerator();
         }
     }
+
 
 
 
